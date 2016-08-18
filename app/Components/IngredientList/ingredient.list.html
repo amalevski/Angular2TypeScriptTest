@@ -1,0 +1,15 @@
+<div>
+  <table class="table table-bordered">
+    <tr *ngFor="let ri of recipeIngredients; let i=index">
+      <th>
+        {{ri.ingredient}}
+      </th>
+      <th>
+        {{ri.quantity}}
+      </th>
+      <th>
+        <button class="btn btn-danger" (click)="remove(i)">X</button>
+      </th>
+    </tr>
+  </table>
+</div>

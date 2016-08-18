@@ -1,0 +1,56 @@
+<div class="row">
+  <h3>New recipe:</h3>
+  <button (click)="NavigateToIndexPage()" class="pull-right btn btn-danger">All recipes</button>
+  <div class="col-md-12">
+    <form [formGroup]="newRecipeForm" (submit)="AddNewRecipe()">
+      <div class="col-md-6">
+        <div class="col-md-12">
+          <label class="col-md-12" for="name">Name:</label>
+          <input formControlName="name" id="recipeName" type="text"/>
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-12" for="origin">Origin:</label>
+          <input formControlName="origin" id="recipeOrigin" type="text">
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-12" for="description">Description:</label>
+          <textarea formControlName="description" id="recipeDescription" type="text"></textarea>
+        </div>
+        <div class="col-md-12">
+          <label class="col-md-12" for="time">Time:</label>
+          <div class="col-md-6">
+            <label>hr:</label>
+            <input formControlName="hours" id="hours" type="text">
+          </div>
+          <div class="col-md-6">
+            <label>min:</label>
+            <input formControlName="minutes" id="minutes" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <form [formGroup]="newIngredientForm" (submit)="AddNewIngredient()">
+          <h4>Add ingredient:</h4>
+          <div class="col-md-12">
+            <label for="quantity">Quantity</label>
+            <input formControlName="quantity" id="quantity" type="text"/>
+          </div>
+          <div class="col-md-12">
+            <label for="ingredients">Ingredients</label>
+            <select formControlName="ingredientName" id="ingredient">
+              <option *ngFor="let ingredient of ingredients" [value]="ingredient.name">{{ingredient.name}}</option>
+            </select>
+          </div>
+          <button class="" type="submit">Add</button>
+        </form>
+      </div>
+      <div class="col-md-12">
+        <ingredient-list [recipeIngredients]="newRecipeIngredients"></ingredient-list>
+      </div>
+      <div class="col-md-12">
+        <button class="btn btn-default pull-right" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+

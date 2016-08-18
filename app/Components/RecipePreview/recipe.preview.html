@@ -1,0 +1,26 @@
+<div class="row">
+  <h2>{{recipe.name}}</h2>
+  <div class="col-md-6">
+    <label>Origin:{{recipe.origin}}</label>
+    <div class="col-md-12">
+      <label>Ingredients:</label>
+      <ul>
+        <li *ngFor="let ingredient of recipe.ContainingIngredients">
+          {{ingredient.ingredient}}-{{ingredient.quantity}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="col-md-12">
+      <label>Description:</label>
+      <p>{{recipe.description}}</p>
+    </div>
+    <div class="col-md-12">
+      <p class="">Time:</p>
+    </div>
+  </div>
+  <button (click)="Remove()" class="btn btn-danger pull-right">Remove</button>
+  <button (click)="NavigateToIndexPage()" class="btn btn-info pull-right">Back</button>
+</div>
+

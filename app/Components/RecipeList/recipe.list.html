@@ -1,0 +1,50 @@
+<div>
+  <h3>Recipe list:</h3>
+  <button (click)="NavigateToCreatePage()" class="btn btn-info pull-right">Create new recipe</button>
+  <table class="table table-bordered">
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Origin</th>
+      <th>Time</th>
+      <th>Ingredients</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let recipe of recipes; let i=index">
+      <th>{{i}}</th>
+      <th>
+        {{recipe.name}}
+      </th>
+      <th>
+        {{recipe.description}}
+      </th>
+      <th>
+        {{recipe.origin}}
+      </th>
+      <th>
+        <span *ngIf="recipe.hours!=''">{{recipe.hours}}:</span><span>{{recipe.minutes}}</span>
+      </th>
+      <th>
+        <div *ngIf="recipe.ContainingIngredients.length>3">
+           <span *ngFor="let ingredient of recipe.ContainingIngredients|slice:0:3, let i=index">
+            {{ingredient.ingredient}}<span *ngIf="i<recipe.ContainingIngredients.length-1">,</span>
+          </span>
+          ...
+        </div>
+        <div *ngIf="recipe.ContainingIngredients.length<4">
+           <span *ngFor="let ingredient of recipe.ContainingIngredients, let i=index">
+            {{ingredient.ingredient}}<span *ngIf="i<recipe.ContainingIngredients.length-1">,</span>
+          </span>
+        </div>
+      </th>
+      <th>
+        <button (click)="Preview(i)" class="btn btn-warning">Preview</button>
+      </th>
+      <th>
+        <button (click)="Remove(i)" class="btn btn-danger">X</button>
+      </th>
+    </tr>
+    </table>
+</div>
