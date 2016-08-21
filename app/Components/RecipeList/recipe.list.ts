@@ -9,7 +9,7 @@ import {RecipeService} from '../../Services/Recipe/recipe.service'
 })
 export class RecipeListComponent {
 
-  recipes = Array<>();
+  recipes = Array<any>();
 
   constructor(private recipeService:RecipeService, private router:Router ){
     this.recipes=recipeService.getRecipes();

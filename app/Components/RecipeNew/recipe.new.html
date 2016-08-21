@@ -7,6 +7,9 @@
         <div class="col-md-12">
           <label class="col-md-12" for="name">Name:</label>
           <input formControlName="name" id="recipeName" type="text"/>
+          <span *ngIf="ShouldShowErrorMessageFor('name')">
+            *Invalid name
+          </span>
         </div>
         <div class="col-md-12">
           <label class="col-md-12" for="origin">Origin:</label>
@@ -15,17 +18,16 @@
         <div class="col-md-12">
           <label class="col-md-12" for="description">Description:</label>
           <textarea formControlName="description" id="recipeDescription" type="text"></textarea>
+          <span *ngIf="ShouldShowErrorMessageFor('description')">
+            *Invalid description
+          </span>
         </div>
         <div class="col-md-12">
           <label class="col-md-12" for="time">Time:</label>
-          <div class="col-md-6">
-            <label>hr:</label>
-            <input formControlName="hours" id="hours" type="text">
-          </div>
-          <div class="col-md-6">
-            <label>min:</label>
-            <input formControlName="minutes" id="minutes" type="text">
-          </div>
+          <input formControlName="time" id="time" type="text">
+          <span *ngIf="ShouldShowErrorMessageFor('time')">
+            *Invalid time
+          </span>
         </div>
       </div>
       <div class="col-md-6">
@@ -47,6 +49,9 @@
       <div class="col-md-12">
         <ingredient-list [recipeIngredients]="newRecipeIngredients"></ingredient-list>
       </div>
+      <span *ngIf="ShouldShowErrorMessageFor('ContainingIngredients')">
+            *Invalid time
+          </span>
       <div class="col-md-12">
         <button class="btn btn-default pull-right" type="submit">Save</button>
       </div>

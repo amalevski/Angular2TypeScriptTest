@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: '/app/Components/IngredientList/ingredient.list.html'
 })
 export class IngredientList {
-  @Input() recipeIngredients;
+  @Input() recipeIngredients : any;
   constructor(){
   }
 

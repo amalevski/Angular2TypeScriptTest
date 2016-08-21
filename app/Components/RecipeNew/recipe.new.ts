@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {IngredientService} from "../../Services/Ingredient/ingredient.service";
 import {IngredientList} from "../IngredientList/ingredient.list";
 import {Ingredient} from "../../Models/Ingredient/ingredient.model";
 import {RecipeIngredient} from '../../Models/Common/RecipeIngredient';
 import {RecipeService} from '../../Services/Recipe/recipe.service';
-import {ValidationService} from '../../Services/Validation/validation.service';
+import {Recipe} from '../../Models/Recipe/recipe.model';
+import { TimeValidators } from '../../Validators/TimeValidators/time.validators';
 
 
 @Component({
@@ -17,10 +18,11 @@ import {ValidationService} from '../../Services/Validation/validation.service';
 })
 export class NewRecipeComponent {
 
-  ingredients = new Array<>();
-  newRecipeIngredients= new Array<>();
-  newIngredientForm: any;
-  newRecipeForm: any;
+  ingredients = new Array<any>();
+  newRecipeIngredients= new Array<any>();
+  newIngredientForm: FormGroup;
+  newRecipeForm: FormGroup;
+  showAllErrors : boolean = false;
 
   constructor(private formBuilder: FormBuilder,public ingredientService:IngredientService, private recipeService:RecipeService,private router:Router){
 
@@ -30,9 +32,8 @@ export class NewRecipeComponent {
       'name': ['',Validators.required],
       'description':['',Validators.required],
       'origin':'',
-      'hours':'',
-      'minutes':['',Validators.required],
-      'ContainingIngredients':[this.newRecipeIngredients,Validators.required]
+      'time':['', Validators.compose([TimeValidators.Format, TimeValidators.Minutes])],
+      'ContainingIngredients':this.newRecipeIngredients
     });
 
     this.newIngredientForm=this.formBuilder.group({
@@ -40,6 +41,10 @@ export class NewRecipeComponent {
       'ingredientName':['Sugar',Validators.required]
     });
 
+  }
+
+  ShouldShowErrorMessageFor(name : string){
+    return (! this.newRecipeForm.controls[name].valid ) && ( this.showAllErrors || this.newRecipeForm.controls[name].dirty);
   }
 
   AddNewIngredient(){
@@ -52,7 +57,17 @@ export class NewRecipeComponent {
 
   AddNewRecipe(){
     if(this.newRecipeForm.valid) {
-      this.recipeService.addRecipe(this.newRecipeForm.value);
+      this.showAllErrors = false;
+      this.recipeService.addRecipe(new Recipe(this.newRecipeForm.value.name,
+        this.newRecipeForm.value.description,
+        this.newRecipeForm.value.origin,
+        this.newRecipeForm.value.time,
+        this.newRecipeIngredients));
+      this.newRecipeForm.reset();
+      this.newRecipeIngredients = new Array<any>();
+    } else {
+      this.showAllErrors = true;
+      console.log(this.newRecipeForm);
     }
   }
 

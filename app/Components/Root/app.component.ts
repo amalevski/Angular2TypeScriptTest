@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import {NewRecipeComponent} from '../RecipeNew/recipe.new';
+import { Component, Type } from '@angular/core';
 import {RecipeListComponent} from '../RecipeList/recipe.list';
 
 @Component({
     selector: 'my-app',
-    directives:[NewRecipeComponent,RecipeListComponent],
+    directives:[RecipeListComponent],
     templateUrl: '/app/Components/Root/app.component.html'
 })
-export class AppComponent {
+export class AppComponent extends Type {
   showList:boolean;
   constructor(){
+    super();
     this.showList=true;
   }
 }

@@ -18,13 +18,16 @@
         {{recipe.name}}
       </th>
       <th>
-        {{recipe.description}}
+        {{recipe.description.charAt(51) == ' ' || recipe.description.length<51 || recipe.description.lastIndexOf(' ') == -1 ?
+        recipe.description.substring(0,50) :
+        recipe.description.substring(0,recipe.description.substring(0,51).lastIndexOf(' ') ) }}
       </th>
       <th>
         {{recipe.origin}}
       </th>
       <th>
-        <span *ngIf="recipe.hours!=''">{{recipe.hours}}:</span><span>{{recipe.minutes}}</span>
+        <span *ngIf="recipe.time.substring(0,2)!='00'">{{recipe.time}}</span>
+        <span *ngIf="recipe.time.substring(0,2)=='00'">{{recipe.time.substring(3)}}</span>
       </th>
       <th>
         <div *ngIf="recipe.ContainingIngredients.length>3">
