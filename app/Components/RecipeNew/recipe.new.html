@@ -7,7 +7,7 @@
         <div class="col-md-12">
           <label class="col-md-12" for="name">Name:</label>
           <input formControlName="name" id="recipeName" type="text"/>
-          <span *ngIf="ShouldShowErrorMessageFor('name')">
+          <span style="color:red;" *ngIf="ShouldShowErrorMessageFor('name')">
             *Invalid name
           </span>
         </div>
@@ -18,14 +18,14 @@
         <div class="col-md-12">
           <label class="col-md-12" for="description">Description:</label>
           <textarea formControlName="description" id="recipeDescription" type="text"></textarea>
-          <span *ngIf="ShouldShowErrorMessageFor('description')">
+          <span style="color:red;" *ngIf="ShouldShowErrorMessageFor('description')">
             *Invalid description
           </span>
         </div>
         <div class="col-md-12">
           <label class="col-md-12" for="time">Time:</label>
           <input formControlName="time" id="time" type="text">
-          <span *ngIf="ShouldShowErrorMessageFor('time')">
+          <span style="color:red;" *ngIf="ShouldShowErrorMessageFor('time')">
             *Invalid time
           </span>
         </div>
@@ -36,6 +36,9 @@
           <div class="col-md-12">
             <label for="quantity">Quantity</label>
             <input formControlName="quantity" id="quantity" type="text"/>
+            <span style="color:red;" *ngIf="!newIngredientForm.controls['quantity'].valid && newIngredientForm.controls['quantity'].dirty">
+            *Invalid quantity
+          </span>
           </div>
           <div class="col-md-12">
             <label for="ingredients">Ingredients</label>
@@ -49,9 +52,9 @@
       <div class="col-md-12">
         <ingredient-list [recipeIngredients]="newRecipeIngredients"></ingredient-list>
       </div>
-      <span *ngIf="ShouldShowErrorMessageFor('ContainingIngredients')">
-            *Invalid time
-          </span>
+      <span style="color:red;" *ngIf="ShouldShowErrorMessageFor('ContainingIngredients')">
+            *Invalid Containing Ingredients
+      </span>
       <div class="col-md-12">
         <button class="btn btn-default pull-right" type="submit">Save</button>
       </div>

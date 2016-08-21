@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {IngredientService} from "../../Services/Ingredient/ingredient.service";
@@ -9,14 +9,13 @@ import {RecipeService} from '../../Services/Recipe/recipe.service';
 import {Recipe} from '../../Models/Recipe/recipe.model';
 import { TimeValidators } from '../../Validators/TimeValidators/time.validators';
 
-
 @Component({
   selector: 'new-recipe',
   templateUrl: '/app/Components/RecipeNew/recipe.new.html',
   providers:[IngredientService,RecipeService],
   directives:[IngredientList]
 })
-export class NewRecipeComponent {
+export class NewRecipeComponent extends Type {
 
   ingredients = new Array<any>();
   newRecipeIngredients= new Array<any>();
@@ -25,7 +24,7 @@ export class NewRecipeComponent {
   showAllErrors : boolean = false;
 
   constructor(private formBuilder: FormBuilder,public ingredientService:IngredientService, private recipeService:RecipeService,private router:Router){
-
+    super();
     this.ingredients=ingredientService.getIngredients();
 
     this.newRecipeForm=this.formBuilder.group({
@@ -33,7 +32,7 @@ export class NewRecipeComponent {
       'description':['',Validators.required],
       'origin':'',
       'time':['', Validators.compose([TimeValidators.Format, TimeValidators.Minutes])],
-      'ContainingIngredients':this.newRecipeIngredients
+      'ContainingIngredients': this.newRecipeIngredients
     });
 
     this.newIngredientForm=this.formBuilder.group({
@@ -51,7 +50,6 @@ export class NewRecipeComponent {
     if(this.newIngredientForm.valid) {
       let newIngredient = this.ingredientService.getIngredientByName(this.newIngredientForm.value.ingredientName);
       this.newRecipeIngredients.push(new RecipeIngredient(this.newIngredientForm.value.quantity, newIngredient.name));
-
     }
   }
 

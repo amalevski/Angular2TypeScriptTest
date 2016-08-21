@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import {RecipeService} from '../../Services/Recipe/recipe.service'
 import {Recipe} from '../../Models/Recipe/recipe.model';
@@ -8,13 +8,13 @@ import {Recipe} from '../../Models/Recipe/recipe.model';
   templateUrl: '/app/Components/RecipePreview/recipe.preview.html',
   providers:[RecipeService]
 })
-export class RecipePreviewComponent {
+export class RecipePreviewComponent extends Type {
 
   index:number;
   recipe:Recipe;
 
   constructor(private recipeService:RecipeService, private router:Router, private route:ActivatedRoute ){
-
+    super();
   }
   ngOnInit() {
     this.route.params.subscribe(params => {

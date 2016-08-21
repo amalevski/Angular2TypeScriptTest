@@ -1,7 +1,7 @@
 import { AppComponent } from './app.component';
 import { RecipeListComponent } from '../RecipeList/recipe.list';
 
-import { async, inject, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 
 import { By }             from '@angular/platform-browser';
 
